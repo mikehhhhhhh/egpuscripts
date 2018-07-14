@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+echo "Deactivating eGPU"
+prime-select intel
+
+sleep 0.5s
+
+read -p "Press any key to restart lightdm onto internal monitor... " -n1 -s
+service lightdm restart
+
+# kill imwheel when undocking
+killall imwheel
+

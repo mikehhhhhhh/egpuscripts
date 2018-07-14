@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+sudo su root -c 'echo 1 > /sys/bus/thunderbolt/devices/0-3/authorized' && \
+echo "Scanning PCI-E devices"
+
+sleep 3s
+
+echo 1 > /sys/bus/pci/rescan
+
+sleep 2s
+
+echo "Activating eGPU"
+prime-select nvidia
+
+sleep 0.5s
+
+read -p "Press any key to restart lightdm onto eGPU monitor... " -n1 -s
+service lightdm restart
+
+# enable imwheel for docked config, my mouse scroll is too slow
+sleep 3s
+imwheel -b "4 5"
